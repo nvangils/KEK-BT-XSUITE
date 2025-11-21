@@ -1,0 +1,117 @@
+!###############################################################################
+! Initialise SAD
+!###############################################################################
+FFS;
+
+!###############################################################################
+! Load Line
+!###############################################################################
+GetMAIN["./../lattices/bte.sad"];
+USE BTE;
+
+!###############################################################################
+! Set Flags
+!###############################################################################
+TRPT;
+INS;
+RFSW;
+CALC;
+
+!###############################################################################
+! Extract Beamline
+!###############################################################################
+bl=ExtractBeamLine[];
+
+USE bl;
+CALC;
+
+!###############################################################################
+! Beam Parameters
+!###############################################################################
+epsilonNx=80e-6;
+epsilonNy=20e-6;
+sigma$z=6e-3;
+sigma$delta=0.0007;
+
+np=100000;
+SeedRandom[17];
+
+Ebeam=MOMENTUM;
+gammaL=Ebeam/ElectronMass;
+
+FFS["EMITX="//epsilonNx/gammaL//";"];
+FFS["EMITY="//epsilonNy/gammaL//";"];
+
+FFS["SIGZ="//sigma$z//";"];
+FFS["SIGE="//sigma$delta//";"];
+FFS["EMITZ="//sigma$z*sigma$delta//";"];
+FFS["DP="//sigma$delta//";"];
+
+FFS["CALC;"];
+FFS["save all;"];
+
+!###############################################################################
+! Function to save the list to the file
+!###############################################################################
+SaveList[z_List, fn_String]:=Module[{fOut,nCol,nRow},
+  WriteString[6, "The list is saved to the file: "//fn];
+  fOut=OpenWrite[fn];
+  If[RealQ[fOut],
+    Do[
+      Do[
+        WriteString[fOut,z[[nRow,nCol]]];
+        Which[
+          nCol<Length[z[[nRow]]],WriteString[fOut," "];,
+          nCol==Length[z[[nRow]]]&&nRow<Length[z],WriteString[fOut,"\n"];
+        ];,
+        {nCol, 1, Length[z[[nRow]]]}
+      ];,
+      {nRow, 1, Length[z]}
+    ];
+    Close[fOut];
+    ,
+    WriteString[6, "... Failed"];
+  ];
+  WriteString[6, ".\n"];
+];
+
+
+!###############################################################################
+! R Matrix Initialisation
+!###############################################################################
+{alpha0x,beta0x,alpha0y,beta0y}=Twiss[{"AX","BX","AY","BY"},"PBTE"];
+r={{1/Sqrt[beta0x], 0, 0, 0}, {-alpha0x/Sqrt[beta0x], Sqrt[beta0x], 0, 0}, {0, 0, 1/Sqrt[beta0y], 0}, {0, 0, -alpha0y/Sqrt[beta0y], Sqrt[beta0y]}}
+ri=SymplecticInverse[r];
+Print["r =\n",r];
+Print["r^(-1) = \n",ri];
+Print["r^(-1) = \n",{{Sqrt[beta0x], 0, 0, 0}, {alpha0x/Sqrt[beta0x], 1/Sqrt[beta0x], 0, 0}, {0, 0, Sqrt[beta0y], 0}, {0, 0, alpha0y/Sqrt[beta0y], 1/Sqrt[beta0y]}}];
+zInit=ri.(Sqrt[Abs[{EMITX,EMITX,EMITY,EMITY}]]*GaussRandom[4,np]);
+zInit=Join[zInit,{SIGZ,SIGE}*GaussRandom[2,np],{zInit[[1]]*0+1}];
+Print["Dimensions of initial beam: ",Dimensions[zInit]];
+ 
+!###############################################################################
+! Initialise Beam
+!###############################################################################
+beamInit={LINE["POSITION", "PBTE"], zInit};
+
+!###############################################################################
+! Track Beam
+!###############################################################################
+beamFin=TrackParticles[beamInit, LINE["POSITION", "INJP"]];
+zFin=beamFin[[2]];
+zTInit=Transpose[zInit];
+zTFin=Transpose[zFin];
+
+!###############################################################################
+! Output Distribution
+!###############################################################################
+fnBeamInit="./../out/bte_pbte.dat";
+fnBeamFin="./../out/bte_injp.dat";
+
+SaveList[zTInit, fnBeamInit];
+SaveList[zTFin, fnBeamFin];
+
+!###############################################################################
+! Close SAD
+!###############################################################################
+Exit[0];
