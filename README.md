@@ -361,6 +361,6 @@ J. Salvesen, G. Iadarola, G. Broggi, H. Sugimoto, K. Oide, G. Roy, A. Oeftiger
 
 
 ## Support
-For any questions or further discussion, please contact nikita.zena.van.gisl@cern.ch with queries.
+For any questions or further discussion, please contact nikita.zena.van.gils@cern.ch with queries.
 
 For any questions regarding the lattice conversions, please contact john.salvesen@cern.ch
