@@ -1,4 +1,3 @@
-
 # SuperKEKB BT Tracking and DA Comparison as an approximation for injection efficiency 
 
 As an upgrade to the electron transfer line at SuperKEKB (BTe) a new Energy compression system (ECS) was installed in the summer of 2025. The ECS consists of a four consecutive RF cavities.
