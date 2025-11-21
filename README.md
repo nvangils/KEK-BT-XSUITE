@@ -26,9 +26,9 @@ Includes options for:
 
 - Radiation (ON/OFF): enables quantum radiation at each required element to be included in the tracking
 
-- Local momentum tapering (ON/OFF): enables local tapering of the line in order to take into account energy loss
+- Local momentum tapering (ON/OFF): enables local tapering of the line in order to take into account energy loss along the line and avoid significant orbit
 
-- Emittance blowup along the line: enables emittance blowup at the end of the line in order 
+- Emittance blowup along the line: enables emittance blowup at the end of the line in order to adjust accoriding to measured values
 
 - Injection type (betatron, synchrotron, hybrid)
 
