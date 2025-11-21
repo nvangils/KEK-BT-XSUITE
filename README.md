@@ -279,7 +279,7 @@ without any errors
 ![Emittance evolution along BTe ](README/no_offsets.png)
 
 
-and by introducing quadrupole alignment errors
+and by introducing quadrupole alignment errors (vertical random seed 100 microns)
 
     008_emittances_errors.py
 
