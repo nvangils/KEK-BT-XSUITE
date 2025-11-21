@@ -352,8 +352,10 @@ The version of Xsuite used in comparisons is the latest version, available at [X
 
 ## SAD2XS
 
-This project relied on the SAD2XS converter written by John Salvesen as found here
+This project relied on the SAD2XS converter written by John Salvesen.
+The package is available at [SAD2XS](https://pypi.org/project/sad2xs/).
 
+For referencing, please refer to:
 "CONSISTENT REPRESENTATION OF LATTICES BETWEEN OPTICS CODE FOR FCC-ee SUPERKEKB AND MORE"
 J. Salvesen, G. Iadarola, G. Broggi, H. Sugimoto, K. Oide, G. Roy, A. Oeftiger
 
