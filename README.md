@@ -322,7 +322,7 @@ This project has been tested for SuperKEKB BTE lattices, including for energy of
 
 Written by Nikita Z van Gils in the context of a month long EAJADE secondment at SUPERKEKB.
 
-With thanks to the following for their vital support:
+With thanks to:
 
 John Salvesen for his guidance on the lattice conversions and support on setting up this project 
 
@@ -330,9 +330,9 @@ Takashi Mori and Naoko Iida for their vital support on this project
 
 Katsunobu Oide for his discussions and expertise on SAD
 
-Andrea Aguirre and Giulia Nigrelli for their discussions regarding the start and end of BT. 
+Andrea Aguirre and Giulia Nigrelli for their discussions regarding the start and end of BT 
 
-EAJADE for funding support.
+EAJADE for funding support
 
 ### EAJADE
 This work was partially supported by the European Union's Horizon Europe Marie Sklodowska-Curie Staff Exchanges programme under grant agreement no. 101086276.
